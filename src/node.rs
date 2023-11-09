@@ -1,5 +1,3 @@
-use std::path::MAIN_SEPARATOR;
-
 use crate::router::Handler;
 
 pub struct Node {

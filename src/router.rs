@@ -38,9 +38,11 @@ impl Router {
 
         let parts: Vec<&str> = line.split(" ").collect();
         if parts.len() < 2 {
+            Ok(()) // FIX
         } else {
             match (parts[0], parts[1]) {
                 ("GET", path) => self.handle(HttpMethod::GET, path, client),
+                (_, _) => Ok(())
             }
         }
     }
@@ -50,11 +52,12 @@ impl Router {
         node.insert(path, handler);
     }
 
-    pub fn handle(&self, method: HttpMethod, path: &str, client: TcpStream) {
+    pub fn handle(&self, method: HttpMethod, path: &str, client: TcpStream) -> Result<()> {
         if let Some(node) = self.routes.get(&method) {
             if let Some(handler) = node.get(path) {
                 return handler(client);
             }
         }
+        Ok(())
     }
 }

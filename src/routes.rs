@@ -7,5 +7,5 @@ pub fn configure(router: &mut Router) {
 }
 
 fn index(client: TcpStream) -> Result<()> {
-
+    Ok(())
 }
